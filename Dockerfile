@@ -34,5 +34,3 @@ RUN mkdir -p /home/runner/.cache/Nuitka \
              /home/runner/.cache/pip \
              /home/runner/.cache/pyinstaller \
     && chown -R runner:runner /home/runner/.cache
-
-USER runner
