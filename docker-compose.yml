@@ -1,0 +1,30 @@
+# Deploiement sur Unraid HOME
+# Prerequis : PAT GitHub avec scope repo stocke dans GITHUB_PAT
+#
+# Lancement :
+#   GITHUB_PAT=xxx docker compose up -d
+
+services:
+  jmq-runner-linux:
+    image: ghcr.io/bzhzion/justmakeq-runner:latest
+    container_name: jmq-runner-linux
+    restart: unless-stopped
+    environment:
+      ACCESS_TOKEN: "${GITHUB_PAT}"
+      REPO_URL: "https://github.com/bzhzion/justmakeq"
+      RUNNER_NAME: "unraid-linux"
+      RUNNER_WORKDIR: "/tmp/runner/work"
+      LABELS: "self-hosted,linux,x64"
+      RUNNER_SCOPE: "repo"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - jmq-runner-work:/tmp/runner
+      - jmq-nuitka-cache:/home/runner/.cache/Nuitka
+      - jmq-pip-cache:/home/runner/.cache/pip
+      - jmq-pyinstaller-cache:/home/runner/.cache/pyinstaller
+
+volumes:
+  jmq-runner-work:
+  jmq-nuitka-cache:
+  jmq-pip-cache:
+  jmq-pyinstaller-cache:
