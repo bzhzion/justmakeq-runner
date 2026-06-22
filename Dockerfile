@@ -1,4 +1,4 @@
-FROM myoung34/github-runner:ubuntu-focal
+FROM myoung34/github-runner:ubuntu-jammy
 
 USER root
 
@@ -7,9 +7,9 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     software-properties-common curl \
     && add-apt-repository ppa:deadsnakes/ppa \
     && apt-get update && apt-get install -y --no-install-recommends \
-    python3.11 python3.11-dev python3.11-venv python3.11-distutils \
+    python3.11 python3.11-dev python3.11-venv \
     libgl1 libglib2.0-0 libfontconfig1 \
-    libxcb-cursor0 libxcb-xinerama0 libxkbcommon-x11-0 \
+    libxcb-xinerama0 libxkbcommon-x11-0 \
     patchelf ccache \
     && rm -rf /var/lib/apt/lists/*
 
