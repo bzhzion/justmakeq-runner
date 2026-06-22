@@ -18,7 +18,7 @@ RUN curl -sS https://bootstrap.pypa.io/get-pip.py | python3.11
 
 # python / python3 / pip -> 3.11
 RUN update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.11 1 \
-    && update-alternatives --install /usr/bin/python python python3.11 1 \
+    && update-alternatives --install /usr/bin/python python /usr/bin/python3.11 1 \
     && ln -sf /usr/local/bin/pip3.11 /usr/local/bin/pip
 
 # Node.js LTS (npx wrangler)
