@@ -1,8 +1,7 @@
 # justmakeq-runner
 
-Image Docker GitHub Actions self-hosted runner pour le CI de [JustMakeQ](https://github.com/bzhzion/justmakeq).
+Image Docker GitHub Actions self-hosted runner.
 
-Publiee sur `ghcr.io/bzhzion/justmakeq-runner:latest` a chaque push sur `main` et chaque lundi (rebuild securite base image).
 
 ## Ce qui est inclus
 
@@ -12,7 +11,7 @@ Publiee sur `ghcr.io/bzhzion/justmakeq-runner:latest` a chaque push sur `main` e
 - Node.js LTS (pour `npx wrangler`)
 - `nuitka`, `ordered-set`, `zstandard`
 
-## Deploiement sur Unraid
+## Deploiement
 
 ```bash
 GITHUB_PAT=xxx docker compose up -d
