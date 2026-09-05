@@ -1,8 +1,13 @@
 name: Build and push runner image
 
 on:
+  # Deploiement sur tag de version uniquement, jamais sur un push de branche : pousser un
+  # correctif de documentation ou une experimentation sur main ne doit pas partir en production.
+  # Poser un tag vX.Y.Z pour livrer. Volontairement sans filtre de chemin : GitHub combine
+  # (branches/tags) ET paths, ce qui rend le declencheur sur tag imprevisible des qu'un filtre
+  # de chemin est present.
   push:
-    branches: [main]
+    tags: ['v*.*.*']
   schedule:
     - cron: '0 3 * * 1'  # Rebuild hebdomadaire (lundi 3h) pour mises a jour securite
   workflow_dispatch:
