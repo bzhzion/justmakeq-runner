@@ -14,6 +14,14 @@ L'historique git reste la source de vérité pour ce qui précède.
 
 ### Corrigé
 
+- **Le rebuild hebdomadaire ne mettait jamais vraiment à jour l'image.** `cache-from:
+  type=gha` réutilise les couches, y compris celle de la base `myoung34/github-runner`,
+  sans revalider son digest upstream tant que le `Dockerfile` ne change pas. Constaté le
+  2026-09-24 : le runner `oracle2-linux-arm64` tournait sur une image de **juillet**
+  malgré plusieurs rebuilds hebdomadaires "réussis" depuis, embarquant une version du
+  runner GitHub Actions que GitHub avait entre-temps **dépréciée côté serveur**
+  (déconnexion immédiate, `queued` indéfiniment côté job). Le cron et le déclenchement
+  manuel avec `no_cache: true` ignorent désormais le cache.
 - **Convention de fins de ligne du parc posée dans `.gitattributes`.** Le bloc `run:` d'un
   workflow GitHub Actions est un script shell exécuté sur un runner Linux : un antislash de
   continuation suivi d'un retour chariot **ne continue pas** la ligne, la commande est coupée en
