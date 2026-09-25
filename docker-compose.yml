@@ -6,7 +6,7 @@
 
 services:
   jmq-runner-linux:
-    image: ghcr.io/bzhzion/justmakeq-runner:latest
+    image: ghcr.io/bzhzion/ci-runner:latest
     container_name: jmq-runner-linux
     restart: unless-stopped
     environment:

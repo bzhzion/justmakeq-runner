@@ -52,7 +52,7 @@ jobs:
           no-cache: ${{ github.event_name == 'schedule' || inputs.no_cache == true }}
           platforms: linux/amd64,linux/arm64
           tags: |
-            ghcr.io/bzhzion/justmakeq-runner:latest
-            ghcr.io/bzhzion/justmakeq-runner:${{ github.sha }}
+            ghcr.io/bzhzion/ci-runner:latest
+            ghcr.io/bzhzion/ci-runner:${{ github.sha }}
           cache-from: type=gha
           cache-to: type=gha,mode=max

@@ -12,7 +12,29 @@ L'historique git reste la source de vérité pour ce qui précède.
 
 ## [Unreleased]
 
+### Modifié
+
+- ⛔ **Le dépôt et l'image sont renommés `justmakeq-runner` → `ci-runner`**
+  (`ghcr.io/bzhzion/ci-runner`). Le nom laissait croire qu'ils ne servaient qu'à JustMakeQ alors
+  qu'ils compilaient déjà les applications **Tauri** du parc, sans que leurs dépendances y soient
+  déclarées. ⚠️ **L'ancien nom survit là où il désigne une ressource réelle** : les volumes
+  `jmq-*-cache` (les renommer détacherait les caches existants) et le conteneur déployé sur
+  oracle2 tant qu'il n'est pas recréé. Le changelog et l'historique git gardent l'ancien nom, ce
+  sont des photos datées.
+
 ### Ajouté
+
+- **La chaîne Tauri complète est déclarée dans l'image** : `build-essential`, `wget`, `file`,
+  `libwebkit2gtk-4.1-dev`, `libgtk-3-dev`, `libayatana-appindicator3-dev`, `librsvg2-dev`,
+  `libxdo-dev`, `libssl-dev`, `xdg-utils`, plus **Rust stable**. ⚠️ Cette liste n'est pas inventée :
+  elle reprend ce que les workflows `release-linux*.yml` du parc installaient **eux-mêmes à chaque
+  build**, plus `xdg-utils` qui y manquait. Les poser ici évite un `apt-get` par exécution.
+- ⚠️ **Rust est installé sous `/usr/local`** (`CARGO_HOME`, `RUSTUP_HOME`) et non dans un `$HOME` :
+  les jobs s'exécutent sous l'utilisateur `runner`, pas sous root, et un rustup posé dans
+  `/root/.cargo` leur serait invisible.
+- ⚠️ **Deux chaînes cohabitent désormais** (Python/Qt/Nuitka et Rust/GTK/WebKit). L'image est plus
+  lourde pour tout le monde : c'est l'arbitrage pris, une seule image à tenir plutôt que deux à
+  garder en phase.
 
 - ⛔ **`xdg-utils`**, sans quoi l'empaquetage AppImage de Tauri échoue sur
   `xdg-mime binary not found`. Trouvé par un build réel de `hae-app` en Linux arm64 le 2026-09-25,
