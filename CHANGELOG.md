@@ -10,7 +10,7 @@ Ce fichier est créé le 2026-09-05, après la mise en service : les évolutions
 pas reconstituées, ce qui serait de la réécriture d'historique plutôt que de la documentation.
 L'historique git reste la source de vérité pour ce qui précède.
 
-## [Unreleased]
+## [0.2.0] - 2026-09-25
 
 ### Modifié
 
