@@ -29,6 +29,20 @@ RUN curl -fsSL https://deb.nodesource.com/setup_lts.x | bash - \
 # Nuitka + deps de compilation pre-installes
 RUN pip install --no-cache-dir nuitka ordered-set zstandard
 
+# Dependances de l'empaquetage Tauri (AppImage).
+#
+# ⛔ Cette image a ete faite POUR JustMakeQ (Qt/PyQt6/Nuitka), et elle sert aussi a compiler les
+# applications Tauri du parc — dont `hae-app` en Linux arm64. Rien ne le declarait, d'ou l'echec du
+# 2026-09-25 : la compilation Rust passait, et le build tombait a la toute derniere etape sur
+# `xdg-mime binary not found`, `xdg-utils` n'etant pas installe.
+#
+# ⚠️ Le paquet n'est ajoute qu'apres avoir ete PROUVE manquant par un build reel. Les autres
+# dependances Tauri ne sont pas posees « au cas ou » : si l'une manque, elle se verra au prochain
+# build et s'ajoutera ici, avec la trace de ce qui l'a exigee.
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    xdg-utils \
+    && rm -rf /var/lib/apt/lists/*
+
 # Repertoires de cache persistables via volume
 RUN mkdir -p /home/runner/.cache/Nuitka \
              /home/runner/.cache/pip \

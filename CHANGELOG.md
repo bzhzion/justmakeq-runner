@@ -12,6 +12,20 @@ L'historique git reste la source de vérité pour ce qui précède.
 
 ## [Unreleased]
 
+### Ajouté
+
+- ⛔ **`xdg-utils`**, sans quoi l'empaquetage AppImage de Tauri échoue sur
+  `xdg-mime binary not found`. Trouvé par un build réel de `hae-app` en Linux arm64 le 2026-09-25,
+  qui compilait Rust jusqu'au bout et tombait à la **toute dernière étape**.
+- ⚠️ **Ce que ça révèle, et qui dépasse le paquet** : cette image a été faite **pour JustMakeQ**
+  (Qt/PyQt6/Nuitka/Python 3.11) et elle sert aussi à compiler les applications **Tauri** du parc.
+  Rien ne le déclarait nulle part — ni son nom, ni son `README`, ni ce changelog. Une image
+  réutilisée hors de son projet d'origine sans déclarer ses nouveaux besoins échoue sur la
+  dépendance suivante, et le message désigne alors le projet qui compile, pas l'image qui manque.
+- ⚠️ Le paquet n'est ajouté **qu'après avoir été prouvé manquant**. Les autres dépendances Tauri
+  ne sont pas posées « au cas où » : si l'une manque, elle se verra au prochain build et s'ajoutera
+  avec la trace de ce qui l'a exigée.
+
 ### Modifié
 
 - **`actions/checkout` et `actions/setup-node` passent en v7** dans les workflows : les versions
